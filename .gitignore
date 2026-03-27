@@ -23,5 +23,3 @@ dist-ssr
 *.sln
 *.sw?
 # Custom directories to ignore
-.claude
-.bkit
