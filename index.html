@@ -12,39 +12,10 @@
         padding: 0;
         height: 100%;
       }
-      /* Bottom ad fixed positioning, centered, width 320px, flush to bottom */
-      .kakao-ad-fixed {
-        position: fixed;
-        bottom: 0;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 320px;
-        height: 50px; /* match ad height */
-        text-align: center;
-        z-index: 1000;
-        /* optionally hide overflow */
-        overflow: hidden;
-      }
     </style>
   </head>
   <body>
-    <!-- 상단 광고 -->
-    <ins class="kakao_ad_area" style="display:none;"
-        data-ad-unit = "DAN-8DZLd0qd18rLB0G3"
-        data-ad-width = "320"
-        data-ad-height = "50"></ins>
-    <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
-
     <div id="root"></div>
-
-    <!-- 하단 광고 (always fixed at bottom, centered, width 320px) -->
-    <div class="kakao-ad-fixed">
-      <ins class="kakao_ad_area" style="display:none;"
-          data-ad-unit = "DAN-MruEhF44OeN4Im2j"
-          data-ad-width = "320"
-          data-ad-height = "50"></ins>
-      <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
-    </div>
 
     <script type="module" src="/src/main.tsx"></script>
   </body>

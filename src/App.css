@@ -226,6 +226,9 @@
   border-bottom: 1px solid var(--border);
   background: var(--bg);
   backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .topTitle {
@@ -263,7 +266,7 @@
 
 .content {
   min-height: 0;
-  padding: var(--space-5) var(--space-6);
+  padding: var(--space-5) var(--space-6) 100px;
   overflow: auto;
 }
 
@@ -599,4 +602,16 @@
   background: #dc2626;
   border-color: #dc2626;
   box-shadow: 0 4px 14px 0 rgba(239, 68, 68, 0.35);
+}
+
+/* Bottom fixed ad */
+.bottomAdContainer {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  background: var(--bg);
+  padding: 0;
+  margin: 0;
 }

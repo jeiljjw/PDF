@@ -1,5 +1,5 @@
 import './App.css'
-import { useCallback, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { SidebarFiles } from './components/SidebarFiles'
 import { SidebarPages } from './components/SidebarPages'
 import { PdfPreview } from './components/PdfPreview'
@@ -26,6 +26,26 @@ function App() {
     () => (selectedPageId ? pages.find((p) => p.id === selectedPageId) ?? null : null),
     [pages, selectedPageId],
   )
+
+  // Load Kakao ad script dynamically
+  useEffect(() => {
+    const scriptUrl = '//t1.daumcdn.net/kas/static/ba.min.js'
+    // Check if script already exists
+    if (document.querySelector(`script[src="${scriptUrl}"]`)) {
+      console.log('Kakao ad script already loaded')
+      return
+    }
+    const script = document.createElement('script')
+    script.src = scriptUrl
+    script.async = true
+    script.onload = () => {
+      console.log('Kakao ad script loaded successfully')
+    }
+    script.onerror = () => {
+      console.error('Failed to load Kakao ad script')
+    }
+    document.head.appendChild(script)
+  }, [])
 
   const pushError = useCallback((message: string) => {
     setErrors((prev) => [...prev, { id: newId('err'), message }])
@@ -58,10 +78,10 @@ function App() {
             }
 
             const sourceId = newId('src')
-            
+
             // bytes를 React 상태 외부에 저장 (detached 방지)
             bytesStore.set(sourceId, bytes)
-            
+
             const src: PdfSource = {
               id: sourceId,
               file,
@@ -99,7 +119,7 @@ function App() {
   const removeSource = useCallback((sourceId: string) => {
     // bytesStore에서 bytes 제거
     bytesStore.delete(sourceId)
-    
+
     setSources((prev) => prev.filter((s) => s.id !== sourceId))
     setPages((prev) => prev.filter((p) => p.sourceId !== sourceId))
     setSelectedSourceId((prev) => (prev === sourceId ? null : prev))
@@ -221,7 +241,14 @@ function App() {
 
       <main className="main">
         <header className="topBar">
-          <div className="topTitle">PDF 미리보기</div>          
+          <div className="topTitle">PDF 미리보기</div>
+          <ins
+            className="kakao_ad_area"
+            style={{ width: '728px', height: '90px', display: 'inline-block' }}
+            data-ad-unit="DAN-NMhYWinDUFBENTy1"
+            data-ad-width="728"
+            data-ad-height="90"
+          />
         </header>
 
         <MergeBar
@@ -261,6 +288,17 @@ function App() {
         onReorderPages={(next) => setPages(next)}
         busy={busy}
       />
+
+      {/* Bottom fixed ad */}
+      <div className="bottomAdContainer">
+        <ins
+          className="kakao_ad_area"
+          style={{ width: '728px', height: '90px', display: 'inline-block' }}
+          data-ad-unit="DAN-6Kbr8HIEaz5Zncq0"
+          data-ad-width="728"
+          data-ad-height="90"
+        />
+      </div>
     </div>
   )
 }
