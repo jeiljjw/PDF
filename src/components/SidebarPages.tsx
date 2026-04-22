@@ -41,10 +41,12 @@ function useInView<T extends Element>(opts?: IntersectionObserverInit) {
   useEffect(() => {
     const el = ref.current
     if (!el) return
-    const obs = new IntersectionObserver(([entry]) => setInView(entry.isIntersecting), opts)
+    const optsObj = opts ?? {}
+    const obs = new IntersectionObserver(([entry]) => setInView(entry.isIntersecting), optsObj)
     obs.observe(el)
     return () => obs.disconnect()
-  }, [opts])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return { ref, inView }
 }

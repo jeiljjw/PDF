@@ -29,7 +29,7 @@ function App() {
 
   // Load Kakao ad script dynamically
   useEffect(() => {
-    const scriptUrl = '//t1.daumcdn.net/kas/static/ba.min.js'
+    const scriptUrl = '//t1.kakaocdn.net/kas/static/ba.min.js'
     // Check if script already exists
     if (document.querySelector(`script[src="${scriptUrl}"]`)) {
       console.log('Kakao ad script already loaded')
@@ -285,7 +285,10 @@ function App() {
         pages={pagesForSidebar}
         selectedPageId={selectedPageId}
         onSelectPage={(id) => setSelectedPageId(id)}
-        onReorderPages={(next) => setPages(next)}
+        onReorderPages={(next) => {
+          setUndoPages(pages)
+          setPages(next)
+        }}
         busy={busy}
       />
 
